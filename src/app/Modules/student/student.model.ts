@@ -52,6 +52,7 @@ const localGuardianSchema = new Schema<localGuardian>({
     type: String,
     required: [true, "Local guardian's name is required"],
   },
+
   occupation: {
     type: String,
     required: [true, "Local guardian's occupation is required"],
@@ -71,6 +72,12 @@ const studentSchema = new Schema<Student>({
     type: String,
     required: true,
     unique: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    required: [true, "User Id is required"],
+    unique: true,
+    ref: "UserModel",
   },
   name: userNameSchema,
   gender: {

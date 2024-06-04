@@ -1,22 +1,26 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StudentServices } from "./student.service";
 
-const createStudent = async (req: Request, res: Response) => {
-  try {
-    const { student: studentData } = req.body;
+// const createStudent = async (req: Request, res: Response) => {
+//   try {
+//     const { student: studentData } = req.body;
 
-    const result = await StudentServices.createStudentIntoDB(studentData);
-    res.status(200).json({
-      success: true,
-      message: "Student Created Successfully",
-      data: result,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     const result = await StudentServices.createStudentIntoDB(studentData);
+//     res.status(200).json({
+//       success: true,
+//       message: "Student Created Successfully",
+//       data: result,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
-const getAllStudent = async (req: Request, res: Response) => {
+const getAllStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const result = await StudentServices.getAllStudentFromDB();
     res.status(200).json({
@@ -25,12 +29,17 @@ const getAllStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    next(error);
   }
 };
 
 // get Single Student
-const getSingleStudent = async (req: Request, res: Response) => {
+const getSingleStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { studentId } = req.params;
     console.log(studentId, 36);
@@ -41,12 +50,13 @@ const getSingleStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    next(error);
   }
 };
 
 export const StudentControllers = {
-  createStudent,
+  // createStudent,
   getAllStudent,
   getSingleStudent,
 };

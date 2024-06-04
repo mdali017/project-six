@@ -15,10 +15,6 @@ const useSchema = new Schema<TUser>(
       type: Boolean,
       default: true,
     },
-    isDeleted: {
-      type: Boolean,
-      default: true,
-    },
     role: {
       type: String,
       enum: ["student", "faculty", "admin"],
@@ -26,9 +22,14 @@ const useSchema = new Schema<TUser>(
     status: {
       type: String,
       enum: ["in-progress", "blocked"],
+      default: "in-progress",
+    },
+    isDeleted: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }
 );
 
-export const User = model<TUser>("User", useSchema);
+export const UserModel = model<TUser>("User", useSchema);
